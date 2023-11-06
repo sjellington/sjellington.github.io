@@ -90,7 +90,6 @@ p {
     background-color:white;
     box-shadow: 7.5px 7.5px rgba(0, 0, 0, 0.23);
     width:fit-content;
-    float:right;
     margin-right: 5%;
 }
 .viewMyWork:hover {
