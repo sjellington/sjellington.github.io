@@ -5,11 +5,11 @@
     min-height: 100vh;
   }
 
-  #content-wrap {
+#content-wrap {
     padding-bottom: 2.5rem;
   }
   
-  #footer {
+#footer {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -153,5 +153,7 @@ p {
     padding:10px 25px 10px;
     font-family: 'Inconsolata', monospace;
     font-size:1.2rem;
-    color: cyan;
+}
+#welcome {
+    color:cyan;
 }
