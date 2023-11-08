@@ -146,3 +146,12 @@ p {
     padding: 25px 5px 25px;
     float:right;
 }
+.algorithms {
+    background-color:black;
+}
+.algorithms pre {
+    padding:10px 25px 10px;
+    font-family: 'Inconsolata', monospace;
+    font-size:1.2rem;
+    color: cyan;
+}
