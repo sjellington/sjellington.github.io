@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;700;800;900&display=swap');
 
+#page-container {
+    position: relative;
+    min-height: 100vh;
+  }
+
   #content-wrap {
     padding-bottom: 2.5rem;
   }
@@ -128,8 +133,8 @@ p {
     color:#d2b48c;
     font-size:1.5rem;
     position:absolute;
-    bottom:0px;
-    left:0px;
+    bottom:0;
+    left:0;
     width:100%;
 
 }
