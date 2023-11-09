@@ -152,6 +152,12 @@ p {
 .algorithms pre {
     padding:10px 25px 10px;
     font-family: 'Inconsolata', monospace;
-    font-size:1.2rem;
+    font-size:1rem;
+    color:#20C20E;
+}
+.algorithms p {
+    padding:10px 25px 10px;
+    font-family: 'Inconsolata', monospace;
+    font-size:1rem;
     color:#20C20E;
 }

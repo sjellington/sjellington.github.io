@@ -184,31 +184,6 @@ def mu(num: int) -> int:
 
     return result
 
-def gcd(a: int, b: int) -> int:
-
-    n: int = 1
-    q: int = 1
-    r: int = 1
-    result: int = 1
-
-    if a == b:
-        result = a
-    else:
-        if a > b:
-            n = a
-            q = b
-        else:
-            n = b
-            q = a
-    
-    while r != 0:
-        r = n%q
-        n = q
-        q = r
-    
-    result = n
-    return result
-
 def phi(num: int) -> int:
 
     result: int = 0

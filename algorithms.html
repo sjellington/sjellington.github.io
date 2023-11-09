@@ -26,33 +26,13 @@
 
     <div class="algorithms" style="position:relative; top:100px; width:47.5%; height:100%; float:right; margin-right:1.25%;">
        
-        <pre>welcome!</pre>
+        <p>
+            Welcome! </br></br>
+            Below you'll find some code I've written to determine certian number-theoretic properties of a given number. </br>
+            To run it, simply copy the code by pressing the 'Copy Text' button below. Paste this text into the Python command line to your left and click the play icon in the top left corner.
+            Follow the prompts to input an integer value. When you're done, you can call the function by typing <span style="color:red";>RUN() </span>and pressing the play icon!</pre>
+        </p>
 
-        <pre><div id="prime_fact">def enter() -> None:
-    print("")
-        
-num: int = input("enter a positive integer: ")
-enter()
-        
-print(f"{num} =")
-enter()
-        
-small_num: int = 2
-result: dict[int, int] = {}
-        
-while small_num < (num + 1):
-    if (num % small_num) == 0:
-        result[small_num] = 0
-    while (num % small_num) == 0:
-        result[small_num] += 1
-        num /= small_num
-        small_num += 1
-        
-for prime in result:
-    print(f"{prime}^{result[prime]}")
-enter()
-        
-print(result)</div></pre>
         <button id="copyButton1" onclick="myFunction()" style="position:relative; margin-left:25px;">Copy text</button>
         <script>
             const copyButton1 = document.getElementById('copyButton1');
@@ -69,6 +49,130 @@ print(result)</div></pre>
                 alert('Text copied to clipboard: ' + textToCopy);
             }
         </script>
+
+        <pre><div id="prime_fact">num = await input("enter a positive integer: ")
+num = int(num)
+
+def prime_fact(num: int) -> dict:
+    small_num: int = 2
+    result: dict[int, int] = {}
+
+    while small_num <= num:
+        if (num % small_num) == 0:
+            result[small_num] = 0
+        while (num % small_num) == 0:
+            result[small_num] += 1
+            num /= small_num
+        small_num += 1
+    
+    return result
+
+def tau(num: int) -> int:
+    fact: dict[int, int] = prime_fact(num)
+    result: int = 1
+
+    for prime in fact:
+        result *= (fact[prime] + 1)
+
+    return result
+
+def sigma(num: int) -> int:
+    divs: list[int] = divisors(num)
+    result: int = 0
+
+    for div in divs:
+        result += div
+    
+    return result
+
+def mu(num: int) -> int:
+    result: int = 0
+    fact: dict[int, int] = prime_fact(num)
+
+    if num == 1:
+        result = 1
+    else:
+        for prime in fact:
+            if fact[prime] >= 2:
+                result = 0
+            else:
+                r: int = 0
+                for prime in fact:
+                    r += 1
+                result = (-1)**r
+
+    return result
+
+def euclidean(a: int, b: int) -> int:
+    consider_num: int = 1
+    quotient: int = 1
+    residue: int = 1
+    result: int = 1
+
+    if a == b:
+        result = a
+    else:
+        if a > b:
+            consider_num = a
+            quotient = b
+        else:
+            consider_num = b
+            quotient = a
+    
+    while residue != 0:
+        residue = consider_num%quotient
+        consider_num = quotient
+        quotient = residue
+    
+    result = consider_num
+    return result
+
+def phi(num: int) -> int:
+    result: int = 0
+    consider_num: int = 1
+
+    while consider_num < num:
+        if euclidean(num, consider_num) == 1:
+            result += 1
+        consider_num += 1
+
+    return result
+
+def divisors(num: int) -> list[int]:
+    result: list[int] = []
+    potential: int = 1
+
+    while potential <= num:
+        if num % potential == 0:
+            result.append(potential)
+        potential += 1
+    
+    return result
+
+def is_prime(num: int) -> bool:
+    consider_num: int = 1
+    factors: int = 0
+    result: bool = True
+
+    while consider_num <= num:
+        if num % consider_num == 0:
+            factors += 1
+        consider_num += 1
+
+    if factors == 2:
+        return result
+    else:
+        factors = False
+        return factors
+
+def RUN() -> None:
+    print(f"is_prime() returns {is_prime(num)}")
+    print(f"prime_fact() returns: {prime_fact(num)}")
+    print(f"d: d|{num} = {divisors(num)}")
+    print(f"τ({num}) = {tau(num)}")
+    print(f"σ({num}) = {sigma(num)}")
+    print(f"μ({num}) = {mu(num)}")
+    print(f"φ({num}) = {phi(num)}")</div></pre>
 
     </div>
 
