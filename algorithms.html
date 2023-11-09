@@ -2,21 +2,8 @@
     <meta name="viewport"; charset="utf-8"; width="device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
     <script>
-        function myFunction() {
-          // Get the text field
-          var copyText = document.getElementById("welcome");
-        
-          // Select the text field
-          copyText.select();
-          copyText.setSelectionRange(0, 99999); // For mobile devices
-        
-          // Copy the text inside the text field
-          navigator.clipboard.writeText(copyText.innerText);
-          
-          // Alert the copied text
-          alert("Copied the text: " + copyText.innerText);
-        }
-        </script>
+
+    </script>
 </head>
 
 <body>
@@ -38,10 +25,51 @@
     </div>
 
     <div class="algorithms" style="position:relative; top:100px; width:47.5%; height:100%; float:right; margin-right:1.25%;">
-        <pre><p id="welcome">
-welcome!
-hello</p></pre>
-        <button onclick="myFunction()" style="position:relative; margin-left:25px;">Copy text</button>
+       
+        <pre>welcome!</pre>
+
+        <pre><div id="prime_fact">def enter() -> None:
+    print("")
+        
+num: int = input("enter a positive integer: ")
+enter()
+        
+print(f"{num} =")
+enter()
+        
+small_num: int = 2
+result: dict[int, int] = {}
+        
+while small_num < (num + 1):
+    if (num % small_num) == 0:
+        result[small_num] = 0
+    while (num % small_num) == 0:
+        result[small_num] += 1
+        num /= small_num
+        small_num += 1
+        
+for prime in result:
+    print(f"{prime}^{result[prime]}")
+enter()
+        
+print(result)</div></pre>
+        <button id="copyButton1" onclick="myFunction()" style="position:relative; margin-left:25px;">Copy text</button>
+        <script>
+            const copyButton1 = document.getElementById('copyButton1');
+            copyButton1.addEventListener('click', copyTextToClipboard);
+
+            function copyTextToClipboard() {
+                const textToCopy = document.getElementById('prime_fact').textContent;
+                const textArea = document.createElement('textarea');
+                textArea.value = textToCopy;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Text copied to clipboard: ' + textToCopy);
+            }
+        </script>
+
     </div>
 
 </body>

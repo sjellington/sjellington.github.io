@@ -153,7 +153,5 @@ p {
     padding:10px 25px 10px;
     font-family: 'Inconsolata', monospace;
     font-size:1.2rem;
-}
-#welcome {
-    color:cyan;
+    color:#20C20E;
 }
