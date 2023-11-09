@@ -68,7 +68,8 @@ def prime_fact(num: int) -> dict:
     return result
 
 def tau(num: int) -> int:
-    fact: dict[int, int] = prime_fact(num)
+    global golden_fact
+    fact: dict[int, int] = golden_fact
     result: int = 1
 
     for prime in fact:
@@ -77,7 +78,8 @@ def tau(num: int) -> int:
     return result
 
 def sigma(num: int) -> int:
-    divs: list[int] = divisors(num)
+    global golden_div
+    divs: list[int] = golden_div
     result: int = 0
 
     for div in divs:
@@ -86,8 +88,9 @@ def sigma(num: int) -> int:
     return result
 
 def mu(num: int) -> int:
+    global golden_fact
     result: int = 0
-    fact: dict[int, int] = prime_fact(num)
+    fact: dict[int, int] = golden_fact
 
     if num == 1:
         result = 1
@@ -128,13 +131,13 @@ def euclidean(a: int, b: int) -> int:
     return result
 
 def phi(num: int) -> int:
-    result: int = 0
-    consider_num: int = 1
+    global golden_fact
+    result: int = 1
+    fact: dict[int, int] = golden_fact
+    result: int = 1
 
-    while consider_num < num:
-        if euclidean(num, consider_num) == 1:
-            result += 1
-        consider_num += 1
+    for prime in fact:
+        result *= prime**fact[prime] - prime**(fact[prime] - 1)
 
     return result
 
@@ -150,20 +153,12 @@ def divisors(num: int) -> list[int]:
     return result
 
 def is_prime(num: int) -> bool:
-    consider_num: int = 1
-    factors: int = 0
-    result: bool = True
+    global golden_div
 
-    while consider_num <= num:
-        if num % consider_num == 0:
-            factors += 1
-        consider_num += 1
-
-    if factors == 2:
-        return result
+    if len(golden_div) == 2:
+        return True
     else:
-        factors = False
-        return factors
+        return False
 
 def RUN() -> None:
     print(f"is_prime() returns {is_prime(num)}")
@@ -172,7 +167,10 @@ def RUN() -> None:
     print(f"τ({num}) = {tau(num)}")
     print(f"σ({num}) = {sigma(num)}")
     print(f"μ({num}) = {mu(num)}")
-    print(f"φ({num}) = {phi(num)}")</div></pre>
+    print(f"φ({num}) = {phi(num)}")
+
+golden_fact: dict[int, int] = prime_fact(num)
+golden_div: list[int] = divisors(num)</div></pre>
 
     </div>
 
