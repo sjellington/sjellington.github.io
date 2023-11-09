@@ -30,7 +30,7 @@
             Welcome! </br></br>
             Below you'll find some code I've written to determine certian number-theoretic properties of a given number. </br>
             To run it, simply copy the code by pressing the 'Copy Text' button below. Paste this text into the Python command line to your left and click the play icon in the top left corner.
-            Follow the prompts to input an integer value. When you're done, you can call the function by typing <span style="color:red";>RUN() </span>and pressing the play icon!</pre>
+            Follow the prompts to input an integer value, and press enter. When you're done, you can call the function by typing <span style="color:red";>RUN() </span>and pressing the play icon!</pre>
         </p>
 
         <button id="copyButton1" onclick="myFunction()" style="position:relative; margin-left:25px;">Copy text</button>
@@ -167,7 +167,8 @@ def RUN() -> None:
     print(f"is_prime() returns {is_prime(num)}")
     enter()
     if is_prime(num) == True:
-        print(f"the sum of primitive roots of {num} ≡ {mu(num)-1}(mod{num})")
+        print(f"the sum of primitive roots of {num} ≡")
+        print(f"{mu(num)-1}(mod{num})")
     enter()
     print(f"prime_fact() returns: {prime_fact(num)}")
     enter()
