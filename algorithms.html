@@ -53,6 +53,9 @@
         <pre><div id="prime_fact">num = await input("enter a positive integer: ")
 num = int(num)
 
+def enter() -> None:
+    print("")
+
 def prime_fact(num: int) -> dict:
     small_num: int = 2
     result: dict[int, int] = {}
@@ -162,8 +165,14 @@ def is_prime(num: int) -> bool:
 
 def RUN() -> None:
     print(f"is_prime() returns {is_prime(num)}")
+    enter()
+    if is_prime(num) == True:
+        print(f"the sum of primitive roots of {num} ≡ {mu(num)-1}(mod{num})")
+    enter()
     print(f"prime_fact() returns: {prime_fact(num)}")
+    enter()
     print(f"d: d|{num} = {divisors(num)}")
+    enter()
     print(f"τ({num}) = {tau(num)}")
     print(f"σ({num}) = {sigma(num)}")
     print(f"μ({num}) = {mu(num)}")
