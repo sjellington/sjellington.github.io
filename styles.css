@@ -14,6 +14,9 @@
     bottom: 0;
     width: 100%;
     height: 2.5rem;
+    background-color:#14213D;
+    color:#d2b48c;
+    font-size:1.5rem;
   }
 
 .vertical-center {
@@ -88,6 +91,12 @@ p {
     box-shadow: 7.5px 7.5px rgba(0, 0, 0, 0.23);
     left: 5%;
     width: 90%;
+}
+.code {
+    padding: 0px;
+    left: 5%;
+    width: 90%;
+    height:fit-content;
 }
 .viewMyWork {
     padding: 0px;
