@@ -1,9 +1,8 @@
 <head>
     <meta name="viewport"; charset="utf-8"; width="device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
-    <script>
-
-    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/night-owl.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
 </head>
 
 <body>
@@ -24,33 +23,35 @@
         <iframe src="https://sjellington.github.io/my-custom-deployment/repl/index.html?kernel=python&toolbar=1" width="100%" height="500px"></iframe>
     </div>
 
-    <div class="algorithms" style="position:relative; top:100px; width:47.5%; height:100%; float:right; margin-right:1.25%;">
-       
-        <p>
-            Welcome! </br></br>
-            Below you'll find some code I've written to determine certian number-theoretic properties of a given number. </br>
-            To run it, simply copy the code by pressing the 'Copy Text' button below. Paste this text into the Python command line to your left and click the play icon in the top left corner.
-            Follow the prompts to input an integer value, and press enter. When you're done, you can call the function by typing <span style="color:white";>RUN() </span>and pressing the play icon!</pre>
-        </p>
+    <div class="code" style="width:47.5%; height:100%; position:absolute; top:100px; left:51.25%;">
+        <div class="pseudo-code">
+            Welcome!</br></br>
+            Below you'll find some code I've written to determine certian number-theoretic properties of a given number. 
+            To run it, simply copy the code by pressing the <span style="color:#ecc48d">'Copy Text'</span> button below. Paste this text into the Python command line to your left <span style="color:#c792ea">and</span> click the play icon <span style="color:#c792ea">in</span> the top left corner.
+            Follow the prompts to <span style="color:#addb67">input</span> an <span style="color:#f78c6c">integer</span> value, <span style="color:#c792ea">and</span> press enter. When you're done, you can call the function by typing <span style="color:#dcdcaa">RUN()</span> <span style="color:#c792ea">and</span> pressing the play icon!
+            
+            <div>
+                <button id="copyButton1" style="position:relative; margin-left:25px; background-color:#011627; color:#d3423e; margin-top:1em;">Copy text</button>
 
-        <button id="copyButton1" style="position:relative; margin-left:25px; background-color:black; color:#20C20E;">Copy text</button>
-        <script>
-            const copyButton1 = document.getElementById('copyButton1');
-            copyButton1.addEventListener('click', copyTextToClipboard);
+                <script>
+                    const copyButton1 = document.getElementById('copyButton1');
+                    copyButton1.addEventListener('click', copyTextToClipboard);
 
-            function copyTextToClipboard() {
-                const textToCopy = document.getElementById('prime_fact').textContent;
-                const textArea = document.createElement('textarea');
-                textArea.value = textToCopy;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                alert('Text copied to clipboard: ' + textToCopy);
-            }
-        </script>
+                    function copyTextToClipboard() {
+                        const textToCopy = document.getElementById('prime_fact').textContent;
+                        const textArea = document.createElement('textarea');
+                        textArea.value = textToCopy;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        alert('Text copied to clipboard: ' + textToCopy);
+                    }
+            </script>
+            </div>
+        </div>
 
-        <pre><div id="prime_fact">num = await input("enter a positive integer: ")
+        <pre id="prime_fact" style="padding-bottom:50px;"><code class="python">num = await input("enter a positive integer: ")
 num = int(num)
 
 def enter() -> None:
@@ -181,7 +182,13 @@ def RUN() -> None:
 
 golden_fact: dict[int, int] = prime_fact(num)
 golden_div: list[int] = divisors(num)</div></pre>
-
+    
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            hljs.highlightAll();
+        });
+    </script>
 
 </body>

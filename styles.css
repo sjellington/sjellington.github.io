@@ -17,7 +17,34 @@
     background-color:#14213D;
     color:#d2b48c;
     font-size:1.5rem;
-  }
+}
+
+.pseudo-code{
+    background:#011627;
+    color:#d6deeb;
+    padding:1em
+}
+
+
+
+#matrix {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+}
+
+.matrix-cell {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 1rem;
+}
 
 .vertical-center {
     position: absolute;
