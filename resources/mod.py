@@ -163,7 +163,6 @@ def sigma(num: int) -> int:
 
 def mu(num: int) -> int:
     enter()
-
     result: int = 0
     fact: dict[int, int] = prime_fact(num)
 
@@ -224,6 +223,7 @@ def is_prime(num: int) -> bool:
         return factors
     
 def rsa_alg(plaintext: str) -> str:
+    """incomplete"""
 
     plaintext = plaintext.strip(" ")
     plaintext = plaintext.upper()
@@ -238,4 +238,7 @@ def rsa_alg(plaintext: str) -> str:
             ciphertext += str((ord(char) - 65))
 
     print(ciphertext)
-        
+
+def main() -> None:
+    num: int = input('Input an integer: ')
+    prime_fact: dict[int, int] = prime_fact()
