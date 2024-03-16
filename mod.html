@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            font-family:'Courier New', Courier, monospace;
+        }
+
+        button {
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+
+    <script>
+
+        function primeFact(num) {
+            var primeFact = {};
+
+            let smallNum = 2;
+
+            while (smallNum <= num) {
+                if (num % smallNum === 0) {
+                    primeFact[smallNum] = 0;
+                }
+                while (num % smallNum === 0) {
+                    primeFact[smallNum] += 1;
+                    num /= smallNum;
+                }
+                smallNum++;
+            }
+            return primeFact
+        }
+
+        function divisorsOf(num) {
+            let divisorsOf = [];
+            let potentialDivisor = 1;
+
+            while (potentialDivisor <= num) {
+                if (num % potentialDivisor === 0) {
+                    divisorsOf.push(potentialDivisor)
+                }
+                potentialDivisor++
+            }
+            return divisorsOf
+        }
+
+        function isPrime(num) {
+            let divisors = divisorsOf(num);
+            return divisors.length === 2;
+        }
+
+        function tau(array) {
+            return array.length
+        }
+
+        function sigma(array) {
+            let result = 0;
+
+            array.forEach(element => {
+                result += element
+            });
+
+            return result
+        }
+
+        function gcd(a, b) {
+            a = Math.abs(a);
+            b = Math.abs(b);
+            while (b !== 0) {
+                let temp = b;
+                b = a % b;
+                a = temp;
+            }
+            return a;
+        }
+
+        function phi(num) {
+            let index = 1;
+            let result = 0;
+            
+            while (index < num) {
+                if (gcd(index, num) === 1) {
+                    result += 1;
+                }
+            index += 1;
+            }
+
+            return result
+        }
+
+        function mu(num) {
+            let result = 0;
+            let fact = primeFact(num);
+
+            if (num === 1) {
+                result = 1;
+            } else {
+                for (const property in fact) {
+                    if (fact[property] >= 2) {
+                        result = 0
+                    } else {
+                        let r = 0
+                        for (const property in fact) {
+                            r += 1
+                        result = (-1)**r
+                        }
+                    }
+                    
+                }
+            }
+            return result
+        }
+
+        function main() {
+            let num = parseInt(document.getElementById("mainInput").value);
+            let mainOutput = document.getElementById("mainOutput");
+
+            // converts primeFact to readable string
+            let primeFactors = primeFact(num);
+            let resultingPrimeFactors = `${num} = `;
+            for (let factor in primeFactors) {
+                resultingPrimeFactors += factor + "^" + primeFactors[factor] + " * ";
+            }
+            resultingPrimeFactors = resultingPrimeFactors.slice(0, -3);
+            // end conversion of primeFact
+
+            // formats primitive roots
+            let primitiveRoots = ''
+            if (isPrime(num) == true) {
+                primitiveRoots += `the sum of primitive roots of ${num} is congruent to ${mu(num) - 1}(mod ${num})`;
+            }
+            // end formatting
+
+            let resultingDivisorsOf = divisorsOf(num);
+            let resultingIsPrime = isPrime(num);
+            let resultingTau = tau(resultingDivisorsOf);
+            let resultingSigma = sigma(resultingDivisorsOf)
+            let resultingPhi = phi(num);
+            let resultingMu = mu(num);
+
+
+
+            mainOutput.innerHTML = `${resultingPrimeFactors}`;
+            mainOutput.innerHTML += "<br>" + `divisors of ${num} are [${resultingDivisorsOf}]`;
+            mainOutput.innerHTML += "<br>" + `isPrime() returns ${resultingIsPrime}`;
+            mainOutput.innerHTML += "<br>" + `tau of ${num} is ${resultingTau}`;
+            mainOutput.innerHTML += "<br>" + `sigma of ${num} is ${resultingSigma}`;
+            mainOutput.innerHTML += "<br>" + `phi of ${num} is ${resultingPhi}`;
+            mainOutput.innerHTML += "<br>" + `mu of ${num} is ${resultingMu}`;
+            mainOutput.innerHTML += "<br>" + `${primitiveRoots}`;
+
+        }
+
+    </script>
+</head>
+
+<body>
+    <div>
+        <div style="height:100px; width:100%; background-color:purple; display:flex; justify-content:center; align-items:center;">
+            <p style="font-size:50px; color:white;">mod.js</p>
+        </div>
+
+        <div>
+            <p>
+                Welcome to mod.js, a series of algorithms I wrote to extract certain number theoretic properties from integers. To use, simply input an integer and click 'submit'!
+            </p>
+        </div>
+
+        <div style="margin-top:25px; display:flex; justify-content:center;">
+            <input type="text" id="mainInput">
+            <button onClick="main()">submit</button>
+        </div>
+
+        <div style="display:flex; justify-content:center;">
+            <p id="mainOutput"></p>
+        </div>
+    </div>
+</body>
+</html>
