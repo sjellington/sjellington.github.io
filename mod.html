@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>mod.js</title>
 
     <style>
         body {
@@ -49,18 +49,18 @@
         }
 
         function isPrime(num) {
-            let divisors = divisorsOf(num);
+            let divisors = goldenDiv;
             return divisors.length === 2;
         }
 
-        function tau(array) {
-            return array.length
+        function tau(divisors) {
+            return divisors.length
         }
 
-        function sigma(array) {
+        function sigma(divisors) {
             let result = 0;
 
-            array.forEach(element => {
+            divisors.forEach(element => {
                 result += element
             });
 
@@ -94,7 +94,7 @@
 
         function mu(num) {
             let result = 0;
-            let fact = primeFact(num);
+            let fact = goldenFact;
 
             if (num === 1) {
                 result = 1;
@@ -119,6 +119,9 @@
             let num = parseInt(document.getElementById("mainInput").value);
             let mainOutput = document.getElementById("mainOutput");
 
+            goldenFact = primeFact(num)
+            goldenDiv = divisorsOf(num)
+
             // converts primeFact to readable string
             let primeFactors = primeFact(num);
             let resultingPrimeFactors = `${num} = `;
@@ -131,7 +134,7 @@
             // formats primitive roots
             let primitiveRoots = ''
             if (isPrime(num) == true) {
-                primitiveRoots += `the sum of primitive roots of ${num} is congruent to ${mu(num) - 1}(mod ${num})`;
+                primitiveRoots += `the sum of primitive roots of ${num} is ${mu(num) - 1 + num}`;
             }
             // end formatting
 
@@ -153,6 +156,7 @@
             mainOutput.innerHTML += "<br>" + `mu of ${num} is ${resultingMu}`;
             mainOutput.innerHTML += "<br>" + `${primitiveRoots}`;
 
+            document.getElementById("mainInput").value = ''
         }
 
     </script>
@@ -176,7 +180,7 @@
         </div>
 
         <div style="display:flex; justify-content:center;">
-            <p id="mainOutput"></p>
+            <p id="mainOutput" style="width:90%; word-wrap:break-word;"></p>
         </div>
     </div>
 </body>
