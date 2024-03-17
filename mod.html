@@ -147,14 +147,15 @@
 
 
 
-            mainOutput.innerHTML = `${resultingPrimeFactors}`;
-            mainOutput.innerHTML += "<br>" + `divisors of ${num} are [${resultingDivisorsOf}]`;
+            mainOutput.innerHTML = `divisors of ${num} are [${resultingDivisorsOf}]`;
+            mainOutput.innerHTML += "<br>" + `${primitiveRoots}`;
+            mainOutput.innerHTML += "<br>" + `${resultingPrimeFactors}`;
             mainOutput.innerHTML += "<br>" + `isPrime() returns ${resultingIsPrime}`;
             mainOutput.innerHTML += "<br>" + `tau of ${num} is ${resultingTau}`;
             mainOutput.innerHTML += "<br>" + `sigma of ${num} is ${resultingSigma}`;
             mainOutput.innerHTML += "<br>" + `phi of ${num} is ${resultingPhi}`;
             mainOutput.innerHTML += "<br>" + `mu of ${num} is ${resultingMu}`;
-            mainOutput.innerHTML += "<br>" + `${primitiveRoots}`;
+
 
             document.getElementById("mainInput").value = ''
         }
