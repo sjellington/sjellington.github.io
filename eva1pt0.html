@@ -24,6 +24,12 @@
                 "You have finished inputing information about this share. Click 'calculate' to see your result."
             ];
 
+            document.getElementById("inputBox").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                submitInput();
+            }
+        });
+
             function submitInput() {
                 const inputElement = document.getElementById('inputBox');
                 const userInput = inputBox.value.trim();
