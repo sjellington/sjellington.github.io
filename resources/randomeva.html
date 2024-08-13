@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVA1PT0</title>
+
+    <style>
+        body{
+            font-family:'Courier New', Courier, monospace;
+        }
+
+        button {
+            font-family:'Courier New', Courier, monospace;
+            font-style:bold;
+        }
+        .button1 {
+            background-color:lightgray;
+            border-color:purple;
+            border-radius:10px;
+            padding:5px 5px 5px;
+            color:purple;
+            transition-duration:0.3s;
+            font-weight:bold;
+        }
+
+        .button1:hover {
+            background-color:purple;
+            color:white
+        }
+
+        .button2 {
+            font-size:25px;
+            font-weight:bold;
+            background-color:lightgray;
+            border-color:purple;
+            border-radius:10px;
+            padding:10px 25px 10px;
+            color:purple;
+            transition-duration:0.3s;
+        }
+
+        .button2:hover {
+            background-color:purple;
+            color:white
+        }
+
+    </style>
+
+</head>
+
+<body style="background-color:lightgray;">
+
+    <div style="height: 100px; background-color: purple;">
+        <h1 style="color:white; font-size:50px; padding-top:25px; text-align:center;">
+            EVA 2.0
+        </h1>
+    </div>
+    <p style="margin-top:2rem;"><b>
+            1) Input actions to test. E.g., "studying", "mowing the lawn", etc.:
+    </b></p>
+
+    <div>
+        <input type="text" id="actionsInput">
+        <button onClick="updateActions()">submit</button>
+        <script>
+            let actionsArray = [];
+        
+            function updateActions() {
+                let actionsInput = document.getElementById("actionsInput").value.trim();
+                
+                if (actionsInput !== "") {
+                    actionsArray.push(actionsInput);
+                    
+                    displayActions();
+                }
+                
+                document.getElementById("actionsInput").value = '';
+            }
+        
+            function displayActions() {
+                let actionsStatement = document.getElementById("actionsStatement");
+                actionsStatement.textContent = ''
+
+                let actionsList = document.getElementById("actionsList");
+                actionsList.innerHTML = '';
+                
+                actionsArray.forEach(action => {
+                    let actionsStatement = document.getElementById("actionsStatement");
+                    actionsStatement.textContent = "We will test:"
+
+                    let li = document.createElement("li");
+                    li.textContent = action;
+                    actionsList.appendChild(li);
+                });
+            }
+        </script>
+
+        <p id="actionsStatement"></p>
+        <ul id="actionsList"></ul>
+    </div>
+
+    <p><b>
+            2) Input possibilities. E.g., "I will pass the test", "my brother-in-law will visit me", etc.:
+    </b></p>
+
+    <div>
+        <input type="text" id="statesInput">
+        <button onClick="updateStates()">submit</button>
+        <script>
+            let statesArray = [];
+
+            function updateStates() {
+
+                let statesInput = document.getElementById("statesInput").value.trim()
+
+                if (statesInput !== "") {
+                    statesArray.push(statesInput)
+                }
+                
+                displayStates()
+            }
+
+            function displayStates() {
+
+                let statesList = document.getElementById("statesList");
+                statesList.innerHTML = ''
+                statesArray.forEach(action => {
+                    let statesStatement = document.getElementById("statesStatement");
+                    statesStatement.textContent = "We will test against the possibilities that:"
+
+                    let li = document.createElement("li");
+                    li.textContent = action;
+                    statesList.appendChild(li);
+                });
+
+                let statesInput = document.getElementById("statesInput")
+                statesInput.value = ''
+            }
+                
+
+        </script>
+    </div>
+
+    <p id="statesStatement"></p>
+    <ul id="statesList"></ul>
+
+    <div style="display:flex; justify-content:center;">
+        <button class="button1" onClick="handleProbs()">click here to enter probability values</button>
+        <script>
+            let probsArray = []
+
+            function handleProbs() {
+                for (let i = 0; i < statesArray.length; i++) {
+                    let prob = prompt(`On a scale of 1-100, how likely is it that ${statesArray[i]}?`);
+                    if (prob !== null && prob !== "") {
+                        probsArray.push(parseFloat(prob));
+                    }
+                }
+            }
+        </script>
+    </div>
+
+    <div style="display:flex; justify-content:center;">
+        <button class="button1" style="margin-top:1rem;" onClick="handleValues()">click here to enter expected utility values</button>
+        <script>
+            let valuesArraysArray = []
+    
+            function handleValues() {
+                for (let i = 0; i < actionsArray.length; i++) {
+                    let valuesArray = []
+                    for (let j = 0; j < statesArray.length; j++) {
+                        let value = prompt(`How much do I value ${actionsArray[i]} if I know that ${statesArray[j]}?: `);
+                        valuesArray.push(value)
+                    }
+                    valuesArraysArray.push(valuesArray)
+                }
+            }
+        </script>
+    </div>
+    
+    <div style="display:flex; justify-content:center;">
+        <button class="button2" style="margin-top:5rem;" onClick="test()">test!</button>
+        <script>
+            function test() {
+                let highValues = [];
+                let highest = 0;
+                let highIndex = [0];
+    
+                for (let i = 0; i < valuesArraysArray.length; i++) {
+                    let highValue = 0;
+                    for (let j = 0; j < statesArray.length; j++) {
+                        highValue += parseFloat(valuesArraysArray[i][j]) * parseFloat(probsArray[j]);
+                    }
+                    highValues.push(highValue);
+                }
+    
+                for (let i = 0; i < highValues.length; i++) {
+                    if (highValues[i] > highest) {
+                        highest = highValues[i];
+                        highIndex = [i];
+                    }
+                }
+                displayHighest(highIndex);
+            }
+    
+            function displayHighest(highIndex) {
+                let finalOutput = document.getElementById("finalOutput");
+                finalOutput.textContent = (`You should consider ${actionsArray[highIndex[0]]}.`)
+            }
+    
+        </script>
+    </div>
+
+    <div style="display:flex; justify-content:center">
+        <p id="finalOutput"></p>
+    </div>    
+        </body>
+        </html>

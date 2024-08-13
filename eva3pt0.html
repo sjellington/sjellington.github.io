@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>EVA: The Expected Value Algorithm</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="mystyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+
+    <div id="header">
+        <h1>
+            EVA: The Expected Value Algorithm
+        </h1>
+    </div>
+
+    <div id="sidebar">
+        <div style="height:100px"></div>
+        <a href="eva.html">Welcome!</a>
+        <a href="eva1pt0.html">EVA 1.0</a>
+        <a href="eva2pt0.html">EVA 2.0</a>
+        <a href="eva3pt0.html">EVA 3.0</a>
+        <a href="eva4pt0.html">EVA 4.0</a>
+    </div>
+
+    <div id="main">
+        <p id="instructions">
+            EVA 3.0 returns the most efficacious action for achieving value from the user's perspective using Savage's expected utility function. Answer a few questions about your situation below.
+        </p>
+
+        <div id="algorithm">
+            <div id="actionsContainer">
+                <div id="actionsPrompt">
+                    Input an action to test, e.g., 'studying', 'mowing the lawn', etc.
+                </div>
+
+                <div id="inputActionsContainer">
+                    <input id="inputActions" autofocus>
+                    <button id="submitActions" onClick="submitActions()">Submit</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align:center">
+            <button id="reload" onClick="refreshPage()">Reset</button>
+        </div>
+    </div>
+
+    <div style="height:100px"></div>
+
+    <script type="text/javascript">
+
+        function refreshPage() {
+            location.reload();
+        }
+
+        const algorithm = document.getElementById("algorithm");
+
+        var actions = [];
+        var inputActions = document.getElementById("inputActions");
+        var actionsPrompt = document.getElementById("actionsPrompt");
+
+        document.getElementById("inputActions").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                submitActions();
+            }
+        });
+
+        function submitActions() {
+            let action = inputActions.value.trim()
+
+            if (action.toLowerCase() !== "done") {
+                actions.push(action);
+                inputActions.value = ''
+                actionsPrompt.innerText = "Input another action. If there are no other actions you wish to test, input 'done'.";
+            } else {
+                actionsPrompt.innerText = "You have finished inputting actions. Continue to the next section.";
+                const inputActionsContainer = document.getElementById("inputActionsContainer");
+                inputActionsContainer.parentNode.removeChild(inputActionsContainer);
+                displayPossiblesContainer()
+            }
+        }
+
+        const possiblesContainer = document.createElement("div");
+        possiblesContainer.id = "possiblesContainer";
+        const possiblesPrompt = document.createElement("div");
+        possiblesPrompt.innerText = "Specify a possible world-state to test against, e.g., 'I will pass the test', 'my brother-in-law will visit me'.";
+        const inputPossiblesContainer = document.createElement("div");
+        inputPossiblesContainer.style.paddingTop = "25px";
+        inputPossiblesContainer.style.paddingBottom = "10px";
+        inputPossiblesContainer.style.textAlign = "center";
+        const inputPossibles = document.createElement("input");
+        inputPossibles.setAttribute("autofocus", "");
+        const submitPossibles = document.createElement("button");
+        submitPossibles.innerText = "Submit";
+        submitPossibles.onclick = submitPossiblesFunction;
+
+        function displayPossiblesContainer() {
+            algorithm.appendChild(possiblesContainer);
+            possiblesContainer.appendChild(possiblesPrompt);
+            possiblesContainer.appendChild(inputPossiblesContainer);
+            inputPossiblesContainer.appendChild(inputPossibles);
+            inputPossiblesContainer.appendChild(submitPossibles);
+
+            inputPossibles.focus();
+        };
+
+        var possibles = [];
+
+        inputPossibles.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                submitPossiblesFunction();
+            }
+        });
+
+        function submitPossiblesFunction() {
+            let possible = inputPossibles.value.trim();
+    
+            if (possible.toLowerCase() !== "done") {
+                possiblesPrompt.innerText = "Specify another possibility. If there are no more possibilities you wish to test against, input 'done'.";
+                possibles.push(possible);
+                inputPossibles.value = '';
+            } else {
+                possiblesPrompt.innerText = "You have finished specifying possibilities. Continue to the next section.";
+                inputPossiblesContainer.parentNode.removeChild(inputPossiblesContainer);
+                displayValuesContainer();
+            }
+        };
+
+        const valuesContainer = document.createElement("div");
+        valuesContainer.id = "valuesContainer";
+        const valuesPrompt = document.createElement("div");
+        const inputValuesContainer = document.createElement("div");
+        inputValuesContainer.style.paddingTop = "25px";
+        inputValuesContainer.style.paddingBottom = "10px";
+        inputValuesContainer.style.textAlign = "center";
+        const inputValues = document.createElement("input");
+        inputValues.setAttribute("autofocus", "");
+        const submitValues = document.createElement("button");
+        submitValues.innerText = "Submit";
+        submitValues.onclick = submitValuesFunction;
+
+        function displayValuesContainer() {
+            algorithm.appendChild(valuesContainer);
+            valuesContainer.appendChild(valuesPrompt);
+            valuesPrompt.innerText = `On a scale of 1-10, how much do I value ${actions[0]} if I know that ${possibles[0]}?`;
+            valuesContainer.appendChild(inputValuesContainer);
+            inputValuesContainer.appendChild(inputValues);
+            inputValues.focus();
+            inputValuesContainer.appendChild(submitValues);
+        }
+
+        inputValues.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                submitValuesFunction();
+            }
+        });
+
+        var values = [];
+        var actionsIndex = 0;
+        var possiblesIndex = 0;
+        var empty = []
+
+        function submitValuesFunction() {
+            if (actionsIndex < actions.length) {
+                if (possiblesIndex < possibles.length) {
+                    empty.push(parseInt(inputValues.value.trim()));
+                    inputValues.value = '';
+                    possiblesIndex++;
+                    if (possiblesIndex < possibles.length) {
+                        valuesPrompt.innerText = `On a scale of 1-10, how much do I value ${actions[actionsIndex]} if I know that ${possibles[possiblesIndex]}?`;
+                    } else {
+                        values.push(empty);
+                        empty = []
+                        possiblesIndex = 0;
+                        actionsIndex++;
+                        if (actionsIndex < actions.length) {
+                            valuesPrompt.innerText = `On a scale of 1-10, how much do I value ${actions[actionsIndex]} if I know that ${possibles[possiblesIndex]}?`;
+                        } else {
+                            valuesPrompt.innerText = "You have finished inputting values. Continue to the next section.";
+                            inputValuesContainer.parentNode.removeChild(inputValuesContainer);
+                            displayProbablesContainer()
+                        }
+                    }
+                }
+            }
+        }
+
+        const probablesContainer = document.createElement("div");
+        probablesContainer.id = "valuesContainer";
+        const probablesPrompt = document.createElement("div");
+        const inputProbablesContainer = document.createElement("div");
+        inputProbablesContainer.style.paddingTop = "25px";
+        inputProbablesContainer.style.paddingBottom = "10px";
+        inputProbablesContainer.style.textAlign = "center";
+        const inputProbables = document.createElement("input");
+        inputProbables.setAttribute("autofocus", "");
+        const submitProbables = document.createElement("button");
+        submitProbables.innerText = "Submit";
+        submitProbables.onclick = submitProbablesFunction;
+        
+        function displayProbablesContainer() {
+            algorithm.appendChild(probablesContainer);
+            probablesContainer.appendChild(probablesPrompt);
+            probablesPrompt.innerText = `On a scale of 1-100, how confident am I that ${possibles[0]}?`;
+            probablesContainer.appendChild(inputProbablesContainer);
+            inputProbablesContainer.appendChild(inputProbables);
+            inputProbables.focus();
+            inputProbablesContainer.appendChild(submitProbables);
+        }
+
+        inputProbables.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                submitProbablesFunction();
+            }
+        });
+
+        var probables = []
+        var probablesIndex = 0
+
+        function submitProbablesFunction() {
+            probables.push(parseInt(inputProbables.value.trim()));
+            inputProbables.value = '';
+            probablesIndex++;
+
+            if (probablesIndex < possibles.length) {
+                probablesPrompt.innerText = `On a scale of 1-100, how confident am I that ${possibles[probablesIndex]}?`;
+            } else {
+                probablesPrompt.innerText = "You have finished inputting probabilities. See result below.";
+                inputProbablesContainer.parentNode.removeChild(inputProbablesContainer);
+                displayResult()
+            }
+        }
+
+        const resultContainer = document.createElement("div");
+        resultContainer.id = "resultContainer";
+        var averages = [];
+        var rowIndex = 0;
+        var columnIndex = 0;
+        var average = 0;
+
+        function displayResult() {
+            while (rowIndex < actions.length) {
+                while (columnIndex < possibles.length) {
+                    average += values[rowIndex][columnIndex] * probables[columnIndex];
+                    columnIndex++;
+                }
+                averages.push(average);
+                columnIndex = 0;
+                rowIndex++;
+                average = 0;
+            }
+
+            var highAction = averages[0];
+            var highActionIndex = 0;
+            var highActionTest = 0;
+            var highActionTestIndex = 1;
+
+            while (highActionTestIndex < actions.length) {
+                highActionTest = averages[highActionTestIndex];
+                if (highActionTest > highAction) {
+                    highAction = highActionTest;
+                    highActionIndex = highActionTestIndex;
+                }
+                highActionTestIndex++;
+            }
+            
+            algorithm.appendChild(resultContainer);
+            resultContainer.innerText = `You should consider ${actions[highActionIndex]}.`;
+        }
+
+    </script>
+</body>
+
+</html>

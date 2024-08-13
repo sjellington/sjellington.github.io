@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <title>EVA: The Expected Value Algorithm</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="mystyle.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+        <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        </script>
+    </head>
+
+    <body>
+
+        <div id="header">
+            <h1>
+                EVA: The Expected Value Algorithm
+            </h1>
+        </div>
+
+        <div id="sidebar">
+            <div style="height:100px"></div>
+            <a href="index.html">Welcome!</a>
+            <a href="eva1pt0.html">EVA 1.0</a>
+            <a href="eva2pt0.html">EVA 2.0</a>
+            <a href="eva3pt0.html">EVA 3.0</a>
+            <a href="eva4pt0.html">EVA 4.0</a>
+        </div>
+
+        <div id="main">
+            <p>
+                Welcome to EVA, a set of algorithms I have written to tackle different decision-theoretic problems.
+            </p>
+
+            <p>
+                EVA is equipped to handle games of chance. She is designed to help users uncover the options that are most efficacious for achieving value given the many different ways the world might present itself.
+            </p>
+
+            <p>
+                EVA employs two decision-theoretic functions to determine expected value: Savage's expected utility function
+            </p>
+
+            <p>
+                $$EU_{SAV}=\sum_s U(A\&S) \cdot cr(S)$$
+            </p>
+
+            <p>
+                and Jeffrey's evidential decision theory
+            </p>
+
+            <p>
+                $$EU_{EDT}=\sum_S U(A\&S) \cdot cr(S|A)$$
+            </p>
+
+            <p>
+                EVA 2.0 and 2.1 are lottery-based algorithms that employ hypergeometric distributions
+            </p>
+
+            <p>
+                $$P(X=k)=\frac{\binom{r}{k}\binom{n \space - \space r}{m \space - \space k}}{\binom{n}{m}} = \frac{\frac{r!}{k!(r \space - \space k)!} \cdot \frac{(n \space - \space r)!}{(m \space - \space k)!(n \space - \space r \space - \space m \space + \space k)!}}{\frac{n!}{m!(n \space - \space m)!}}$$
+            </p>
+
+            <p>
+                to calculate the probability of choosing k winning numbers from a field of n possible selections. She then calculates the expected return on investment with the following equation:
+            </p>
+
+            <p>
+                $$ROI_{exp}=\left(\frac{expected \space value - ticket \space price}{ticket \space price} \cdot 100\right) \%$$
+            </p>
+        </div>
+        <div style="height:100px">
+
+        </div>
+    </body>
+
+</html>
