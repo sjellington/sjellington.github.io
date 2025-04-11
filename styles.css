@@ -99,6 +99,10 @@ a:hover {
     color:white !important;
 }
 
+a.inline-hover:hover {
+    color: greenyellow !important;
+}
+
 .column {
     position: absolute;
     top: 50%;
